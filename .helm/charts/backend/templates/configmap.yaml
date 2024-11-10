@@ -1,0 +1,12 @@
+{{- if $.Values.config }}
+apiVersion: v1
+kind: ConfigMap
+metdata: 
+  name: {{ include "app.name" }}
+  labels:
+  {{- include "hub.labels" . | nindent 4}}
+data:
+        {{- with .Values.config }}
+        {{- toYaml . | nindent 2 }}
+        {{- end }}
+{{- end }}

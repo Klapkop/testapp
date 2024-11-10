@@ -1,0 +1,10 @@
+apiVersion: v2
+name: project_name
+version: 1.0.0
+
+dependencies:
+  - name: backend
+    condition: backend.enabled
+    export-values:
+    - parent: werf
+      child: werf

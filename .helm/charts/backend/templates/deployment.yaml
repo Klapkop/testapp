@@ -1,0 +1,62 @@
+# .helm/templates/backend.yaml:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.name" . }}
+  labels:
+    {{- include "hub.labels" . | nindent 4 }}
+spec:
+  replicas: {{ $.Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "app.name" . }}
+  template:
+    metadata:
+      labels:
+          app: {{ include "app.name" . }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+      - name: main
+        image: {{ $.Values.werf.image.backend }}
+        {{- with $.Values.env }}
+        env:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        ports:
+          - name: http
+            containerPort: {{ $.Values.service.port }}
+            protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop: ['ALL']
+          seccompProfile:
+            type: RuntimeDefault
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        {{- with .Values.volumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+
+
+        

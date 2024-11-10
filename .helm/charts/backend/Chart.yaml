@@ -1,0 +1,20 @@
+apiVersion: v2
+name: backend
+version: 1.0.0
+dependencies:
+  - name: postgresql
+    version: "~12.1.9"
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: postgres.enabled
+  - name: mysql
+    version: "~11.1.20"
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: mysql.enabled
+  - name: mongodb
+    version: "~16.2.1"
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: mongodb.enabled
+  - name: redis
+    version: "~20.2.1"
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: redis.enabled

@@ -1,0 +1,44 @@
+global:
+  hub:
+    owner: user@example.com
+    sourceRepo: https://git.example.com/repo
+
+replicas: 1
+
+config: {}
+configPath: /config
+
+ingress:
+  enabled: false
+  rootDomain: app.example.com
+  path: /api
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+service:
+  port: 8080
+
+postgres:
+  enabled: false
+
+mysql:
+  enabled: false
+
+mongodb:
+  enabled: false
+
+redis:
+  enabled: false
+
+secrets: []
+configMaps: []
+volumes: []
+env: []
+args: []
+volumeMounts: []

@@ -1,0 +1,8 @@
+# Naam van je project
+project: my-app
+configVersion: 1
+---
+# De docker image van je backend
+image: backend
+dockerfile: Dockerfile
+context: backend

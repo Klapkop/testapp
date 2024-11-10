@@ -1,0 +1,6 @@
+global:
+  hub:
+    owner: user@example.com
+    sourceRepo: https://git.example.com/repo
+
+backend: {}
